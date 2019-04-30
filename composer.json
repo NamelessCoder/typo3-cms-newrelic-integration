@@ -8,7 +8,7 @@
     },
     "autoload": {
         "psr-4": {
-            "NamelessCoder\\NewrelicIntegration\\Classes\\": "Classes/"
+            "NamelessCoder\\NewrelicIntegration\\": "Classes/"
         }
     },
     "replace": {
