@@ -1,35 +1,35 @@
-# cat=basic/enable; type=boolean; label=Trace page UID in FE: Trace the page UID in all frontend requests, including it in a custom transaction name. This allows you to monitor the performance of each individual page in the frontend rather than simply tracking that the request is a frontend request.
+  # cat=basic/enable; type=boolean; label=Trace page UID in FE: Trace the page UID in all frontend requests, including it in a custom transaction name. This allows you to monitor the performance of each individual page in the frontend rather than simply tracking that the request is a frontend request.
 tracePageUid = 1
 
-# cat=basic/enable; type=boolean; label=Trace page type number in FE: Trace the type URL argument in all frontend requests, including it in a custom transaction name. This allows you to specifically monitor the performance of PAGE objects with custom typeNum values on individual pages. Only applies if also tracking the page UID!
+  # cat=basic/enable; type=boolean; label=Trace page type number in FE: Trace the type URL argument in all frontend requests, including it in a custom transaction name. This allows you to specifically monitor the performance of PAGE objects with custom typeNum values on individual pages. Only applies if also tracking the page UID!
 tracePageType = 1
 
-# cat=basic/enable; type=boolean; label=Trace DataHandler commands: Trace DataHandler commands such as copy, delete, move record operations as a separate type of transaction which includes the table, id and relative-to id as custom parameters in the Newrelic transaction log.
+  # cat=basic/enable; type=boolean; label=Trace DataHandler commands: Trace DataHandler commands such as copy, delete, move record operations as a separate type of transaction which includes the table, id and relative-to id as custom parameters in the Newrelic transaction log.
 traceDataHandlerCommands = 1
 
-# cat=basic/enable; type=boolean; label=Trace TypoScript parsing: Trace all time spent parsing TypoScript templates (frontend only).
+  # cat=basic/enable; type=boolean; label=Trace TypoScript parsing: Trace all time spent parsing TypoScript templates (frontend only).
 traceTypoScriptParsing = 1
 
-# cat=basic/enable; type=boolean; label=Trace Fluid parsing: Trace all time spent on parsing Fluid templates. The metric can be viewed in both FE and BE transactions in Newrelic.
+  # cat=basic/enable; type=boolean; label=Trace Fluid parsing: Trace all time spent on parsing Fluid templates. The metric can be viewed in both FE and BE transactions in Newrelic.
 traceFluidParsing = 1
 
-# cat=basic/enable; type=boolean; label=Trace Fluid rendering: Trace all time spent on rendering each of the Fluid renderables - templates (with or without layouts), partials and sections.
+  # cat=basic/enable; type=boolean; label=Trace Fluid rendering: Trace all time spent on rendering each of the Fluid renderables - templates (with or without layouts), partials and sections.
 traceFluidRendering = 1
 
-# cat=basic/enable; type=boolean; label=Trace frontend users: Include frontend user information in traces and make FE login operations appear as a separate transaction in Newrelic.
+  # cat=basic/enable; type=boolean; label=Trace frontend users: Include frontend user information in traces and make FE login operations appear as a separate transaction in Newrelic.
 traceFrontendUsers = 1
 
-# cat=basic/enable; type=string; label=Trace frontend users fields: Select which frontend user fields to include in the trace
+  # cat=basic/enable; type=string; label=Trace frontend users: Select which frontend user fields to inlcude in the trace
 traceFrontendUsersFields = uid, username, company, email
 
-# cat=basic/enable; type=boolean; label=Trace object instancing: Trace time spent on creation of objects via GeneralUtility and ObjectManager and include in traces in Newrelic.
+  # cat=basic/enable; type=boolean; label=Trace object instancing: Trace time spent on creation of objects via GeneralUtility and ObjectManager and include in traces in Newrelic.
 traceObjectInstancing = 1
 
-# cat=basic/enable; type=boolean; label=Trace Extbase controllers: Trace time spent on processing Extbase requests and calling action methods. Traces the two metrics separately to inform you of time consumed by framework vs. time consumed by pure action calling.
+  # cat=basic/enable; type=boolean; label=Trace Extbase controllers: Trace time spent on processing Extbase requests and calling action methods. Traces the two metrics separately to inform you of time consumed by framework vs. time consumed by pure action calling.
 traceExtbaseControllers = 1
 
-# cat=basic/enable; type=boolean; label=Trace Extbase persistence: Trace time spent performing queries and mapping objects in Extbase persistence layers
+  # cat=basic/enable; type=boolean; label=Trace Extbase persistence: Trace time spent performing queries and mapping objects in Extbase persistence layers
 traceExtbasePersistence = 1
 
-# cat=basic/enable; type=boolean; label=Trace cache operations: Trace time spent on getting and setting cache entries, and time spent on flushing caches. Covers the built-in cache backend types - not frontends - to better track which storage methods consume resources.
+  # cat=basic/enable; type=boolean; label=Trace cache operations: Trace time spent on getting and setting cache entries, and time spent on flushing caches. Covers the built-in cache backend types - not frontends - to better track which storage methods consume resources.
 traceCacheOperations = 1
