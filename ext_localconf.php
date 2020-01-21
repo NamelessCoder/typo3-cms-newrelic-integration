@@ -140,8 +140,7 @@ $configuration = $GLOBALS['TYPO3_CONF_VARS']['EXTENSIONS']['newrelic_integration
                     if (empty($controller->fe_user->user['uid'])) {
                         newrelic_add_custom_parameter('Frontend user', 'Anonymous');
                     } else {
-                        // Fetch current field configuration, default back to default fields if ext-conf is not set yet
-                        $traceFrontendUsersFields = !empty($configuration['traceFrontendUsersFields']) ? \TYPO3\CMS\Core\Utility\GeneralUtility::trimExplode(',', $configuration['traceFrontendUsersFields']) : ['uid', 'username', 'company', 'email'];
+                        $traceFrontendUsersFields = !empty($configuration['traceFrontendUsersFields']) ? \TYPO3\CMS\Core\Utility\GeneralUtility::trimExplode(',', $configuration['traceFrontendUsersFields']) : [];
                         $traceFields = [];
                         foreach ($traceFrontendUsersFields as $traceFrontendUsersField) {
                             $traceFields[] = $controller->fe_user->user[$traceFrontendUsersField];
