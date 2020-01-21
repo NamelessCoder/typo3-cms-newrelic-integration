@@ -134,16 +134,17 @@ if (!defined('TYPO3_MODE')) {
                     if (empty($controller->fe_user->user['uid'])) {
                         newrelic_add_custom_parameter('Frontend user', 'Anonymous');
                     } else {
+                        $traceFrontendUsersFields = !empty($configuration['traceFrontendUsersFields']) ? \TYPO3\CMS\Core\Utility\GeneralUtility::trimExplode(',', $configuration['traceFrontendUsersFields']) : [];
+                        $traceFields = [];
+                        foreach ($traceFrontendUsersFields as $traceFrontendUsersField) {
+                            $traceFields[] = $controller->fe_user->user[$traceFrontendUsersField];
+                        }
+
                         newrelic_add_custom_parameter(
                             'Frontend user',
                             implode(
                                 ', ',
-                                [
-                                    $controller->fe_user->user['uid'],
-                                    $controller->fe_user->user['username'],
-                                    $controller->fe_user->user['company'],
-                                    $controller->fe_user->user['email'],
-                                ]
+                                $traceFields
                             )
                         );
                     }
