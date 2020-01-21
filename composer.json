@@ -2,11 +2,13 @@
     "name": "namelesscoder/typo3-cms-newrelic-integration",
     "type": "typo3-cms-extension",
     "require": {
-        "typo3/cms": "^8.5"
+        "typo3/cms-core": "^8|^9",
+	"typo3/cms-frontend": "^8|^9",
+	"typo3/cms-backend": "^8|^9"
     },
     "autoload": {
         "psr-4": {
-            "NamelessCoder\\NewrelicIntegration\\Classes\\": "Classes/"
+            "NamelessCoder\\NewrelicIntegration\\": "Classes/"
         }
     },
     "replace": {
