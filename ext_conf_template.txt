@@ -19,7 +19,7 @@ traceFluidRendering = 1
   # cat=basic/enable; type=boolean; label=Trace frontend users: Include frontend user information in traces and make FE login operations appear as a separate transaction in Newrelic.
 traceFrontendUsers = 1
 
-  # cat=basic/enable; type=string; label=Trace frontend users: Select which frontend user fields to inlcude in the trace
+  # cat=basic/enable; type=string; label=Trace frontend users: Select which frontend user fields to include in the trace
 traceFrontendUsersFields = uid, username, company, email
 
   # cat=basic/enable; type=boolean; label=Trace object instancing: Trace time spent on creation of objects via GeneralUtility and ObjectManager and include in traces in Newrelic.
