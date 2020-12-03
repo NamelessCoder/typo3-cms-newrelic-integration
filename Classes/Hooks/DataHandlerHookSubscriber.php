@@ -1,4 +1,5 @@
 <?php
+
 namespace NamelessCoder\NewrelicIntegration\Hooks;
 
 use TYPO3\CMS\Core\DataHandling\DataHandler;

@@ -2,3 +2,6 @@
 /typo3
 /typo3_src
 /.idea
+/public
+/vendor
+/.php_cs.cache
