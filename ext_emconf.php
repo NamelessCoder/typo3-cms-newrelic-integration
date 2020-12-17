@@ -1,40 +1,20 @@
 <?php
-$EM_CONF[$_EXTKEY] = array (
-  'title' => 'Newrelic Integration',
-  'description' => 'A collection of integrations for Newrelic monitoring',
-  'category' => 'misc',
-  'author' => 'Claus Due / NamelessCoder',
-  'author_email' => 'claus@namelesscoder.net',
-  'author_company' => '',
-  'shy' => '',
-  'dependencies' => '',
-  'conflicts' => '',
-  'priority' => '',
-  'module' => '',
-  'state' => 'beta',
-  'internal' => '',
-  'uploadfolder' => 0,
-  'createDirs' => '',
-  'modify_tables' => '',
-  'clearCacheOnLoad' => 0,
-  'lockType' => '',
-  'version' => '1.2.0',
-  'constraints' =>
-  array (
-    'depends' =>
-    array (
-      'php' => '7.0.0-7.4.99',
-      'typo3' => '8.5.99-10.99.99',
-    ),
-    'conflicts' =>
-    array (
-    ),
-    'suggests' =>
-    array (
-    ),
-  ),
-  'suggests' =>
-  array (
-  ),
-  '_md5_values_when_last_written' => '',
-);
+
+$EM_CONF[$_EXTKEY] = [
+    'title' => 'Newrelic Integration',
+    'description' => 'A collection of integrations for Newrelic monitoring',
+    'category' => 'misc',
+    'author' => 'Claus Due / NamelessCoder',
+    'author_email' => 'claus@namelesscoder.net',
+    'author_company' => '',
+    'state' => 'beta',
+    'clearCacheOnLoad' => 0,
+    'version' => '1.2.0',
+    'constraints' => [
+        'depends' => [
+            'typo3' => '9.5.0-10.4.99',
+        ],
+        'conflicts' => [],
+        'suggests' => [],
+    ]
+];
