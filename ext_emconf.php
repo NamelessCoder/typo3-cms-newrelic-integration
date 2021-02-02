@@ -19,13 +19,13 @@ $EM_CONF['newrelic_integration'] = [
     'modify_tables' => '',
     'clearCacheOnLoad' => 0,
     'lockType' => '',
-    'version' => '1.3.0',
+    'version' => '1.2.0',
     'constraints' =>
         [
             'depends' =>
                 [
-                    'php' => '7.0.0-7.4.99',
-                    'typo3' => '9.5.99-10.99.99',
+                    'php' => '7.0.0-7.3.99',
+                    'typo3' => '8.5.99-9.99.99',
                 ],
             'conflicts' => [],
             'suggests' => [],
