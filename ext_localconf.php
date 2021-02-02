@@ -3,10 +3,16 @@ if (!defined('TYPO3_MODE')) {
 	die('Access denied.');
 }
 
-(function() use ($_EXTCONF) {
-    if (extension_loaded('newrelic')) {
+if (!empty($GLOBALS['TYPO3_CONF_VARS']['EXT']['extConf']['newrelic_integration']) && version_compare(\TYPO3\CMS\Core\Utility\ExtensionManagementUtility::getExtensionVersion('core'), '9.5', '>')) {
+    // Import settings that exist in serialized arrays. These override settings that would otherwise be stored in the new
+    // raw array. Once settings have been saved by install tool "Settings" module, the old serialized value is removed from
+    // the array and this condition will no longer trigger.
+    $GLOBALS['TYPO3_CONF_VARS']['EXTENSIONS']['newrelic_integration'] = unserialize($GLOBALS['TYPO3_CONF_VARS']['EXT']['extConf']['newrelic_integration']);
+}
+$configuration = $GLOBALS['TYPO3_CONF_VARS']['EXTENSIONS']['newrelic_integration'];
 
-        $configuration = unserialize($_EXTCONF);
+(function() use ($configuration) {
+    if (extension_loaded('newrelic')) {
 
         if (!empty($GLOBALS['argv'])) {
             newrelic_name_transaction('CLI/command/' . $GLOBALS['argv'][1] . (isset($GLOBALS['argv'][2]) ? '/' . $GLOBALS['argv'][2] : ''));
