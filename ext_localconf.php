@@ -126,7 +126,7 @@ if (!defined('TYPO3_MODE')) {
                 $GLOBALS['TYPO3_CONF_VARS']['SC_OPTIONS']['tslib/class.tslib_fe.php']['initFEuser']['newrelic'] = function(
                     array $parameters,
                     \TYPO3\CMS\Frontend\Controller\TypoScriptFrontendController $controller
-                ) {
+                ) use ($configuration) {
                     $login = $controller->fe_user->getLoginFormData();
                     if (!empty($login) && $login['status'] === 'login') {
                         newrelic_name_transaction('FE login');
