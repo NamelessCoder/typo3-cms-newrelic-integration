@@ -1,5 +1,5 @@
 <?php
-$EM_CONF[$_EXTKEY] = array (
+$EM_CONF['newrelic_integration'] = array (
   'title' => 'Newrelic Integration',
   'description' => 'A collection of integrations for Newrelic monitoring',
   'category' => 'misc',
@@ -23,8 +23,8 @@ $EM_CONF[$_EXTKEY] = array (
   array (
     'depends' =>
     array (
-      'php' => '7.0.0-7.3.99',
-      'typo3' => '8.5.99-9.99.99',
+      'php' => '7.0.0-7.4.99',
+      'typo3' => '8.7.0-10.4.99',
     ),
     'conflicts' =>
     array (
