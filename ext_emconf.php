@@ -18,7 +18,7 @@ $EM_CONF['newrelic_integration'] = array (
   'modify_tables' => '',
   'clearCacheOnLoad' => 0,
   'lockType' => '',
-  'version' => '1.2.0',
+  'version' => '1.3.0',
   'constraints' =>
   array (
     'depends' =>
