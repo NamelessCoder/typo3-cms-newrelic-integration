@@ -1,6 +1,6 @@
 <?php
 if (!defined('TYPO3_MODE')) {
-	die('Access denied.');
+    die('Access denied.');
 }
 
 (function() {
@@ -59,10 +59,12 @@ if (!defined('TYPO3_MODE')) {
             newrelic_add_custom_tracer(\TYPO3\CMS\Core\Cache\Backend\FileBackend::class . '::get');
             newrelic_add_custom_tracer(\TYPO3\CMS\Core\Cache\Backend\FileBackend::class . '::set');
             newrelic_add_custom_tracer(\TYPO3\CMS\Core\Cache\Backend\FileBackend::class . '::flush');
-            newrelic_add_custom_tracer(\TYPO3\CMS\Core\Cache\Backend\ApcBackend::class . '::get');
-            newrelic_add_custom_tracer(\TYPO3\CMS\Core\Cache\Backend\ApcBackend::class . '::set');
-            newrelic_add_custom_tracer(\TYPO3\CMS\Core\Cache\Backend\ApcBackend::class . '::flush');
-            newrelic_add_custom_tracer(\TYPO3\CMS\Core\Cache\Backend\ApcBackend::class . '::flushByTags');
+            if (class_exists(\TYPO3\CMS\Core\Cache\Backend\ApcBackend::class)) {
+                newrelic_add_custom_tracer(\TYPO3\CMS\Core\Cache\Backend\ApcBackend::class . '::get');
+                newrelic_add_custom_tracer(\TYPO3\CMS\Core\Cache\Backend\ApcBackend::class . '::set');
+                newrelic_add_custom_tracer(\TYPO3\CMS\Core\Cache\Backend\ApcBackend::class . '::flush');
+                newrelic_add_custom_tracer(\TYPO3\CMS\Core\Cache\Backend\ApcBackend::class . '::flushByTags');
+            }
             newrelic_add_custom_tracer(\TYPO3\CMS\Core\Cache\Backend\ApcuBackend::class . '::get');
             newrelic_add_custom_tracer(\TYPO3\CMS\Core\Cache\Backend\ApcuBackend::class . '::set');
             newrelic_add_custom_tracer(\TYPO3\CMS\Core\Cache\Backend\ApcuBackend::class . '::flush');
@@ -97,11 +99,12 @@ if (!defined('TYPO3_MODE')) {
                 $GLOBALS['TYPO3_CONF_VARS']['SC_OPTIONS']['t3lib/class.t3lib_tcemain.php']['processCmdmapClass'][] = \NamelessCoder\NewrelicIntegration\Hooks\DataHandlerHookSubscriber::class;
             }
 
-            $GLOBALS['TYPO3_CONF_VARS']['SC_OPTIONS']['cms/layout/db_layout.php']['drawFooterHook']['newrelic_integration'] = function(
-                array $parameters,
-                \TYPO3\CMS\Backend\Controller\PageLayoutController $pageLayoutController
-            ) {
-                newrelic_name_transaction('BE/' . $pageLayoutController->MCONF['name']);
+            /*
+             * Since there is no constant for the 'web_layout' module name, use it directly.
+             * Up to TYPO3 v10, it was possible to use $pageLayoutController->MCONF['name']
+             */
+            $GLOBALS['TYPO3_CONF_VARS']['SC_OPTIONS']['cms/layout/db_layout.php']['drawFooterHook']['newrelic_integration'] = function() {
+                newrelic_name_transaction('BE/web_layout');
             };
 
         }
