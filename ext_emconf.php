@@ -23,8 +23,8 @@ $EM_CONF['newrelic_integration'] = array (
   array (
     'depends' =>
     array (
-      'php' => '7.0.0-7.4.99',
-      'typo3' => '8.7.0-10.4.99',
+      'php' => '7.0.0-8.1.99',
+      'typo3' => '8.7.0-11.5.99',
     ),
     'conflicts' =>
     array (
