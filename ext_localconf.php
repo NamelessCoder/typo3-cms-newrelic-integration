@@ -11,7 +11,7 @@ if (!defined('TYPO3_MODE')) {
             // the array and this condition will no longer trigger.
             $GLOBALS['TYPO3_CONF_VARS']['EXTENSIONS']['newrelic_integration'] = unserialize($GLOBALS['TYPO3_CONF_VARS']['EXT']['extConf']['newrelic_integration']);
         }
-        $configuration = $GLOBALS['TYPO3_CONF_VARS']['EXTENSIONS']['newrelic_integration'];
+        $configuration = $GLOBALS['TYPO3_CONF_VARS']['EXTENSIONS']['newrelic_integration'] ?? [];
 
 
         if (!empty($GLOBALS['argv'])) {
@@ -22,33 +22,33 @@ if (!defined('TYPO3_MODE')) {
 
         newrelic_capture_params(true);
 
-        if ($configuration['traceObjectInstancing']) {
+        if (isset($configuration['traceObjectInstancing']) && $configuration['traceObjectInstancing']) {
             newrelic_add_custom_tracer(\TYPO3\CMS\Core\Utility\GeneralUtility::class . '::makeInstance');
             newrelic_add_custom_tracer(\TYPO3\CMS\Extbase\Object\ObjectManager::class . '::get');
         }
 
-        if ($configuration['traceFluidParsing']) {
+        if (isset($configuration['traceFluidParsing']) && $configuration['traceFluidParsing']) {
             newrelic_add_custom_tracer(\TYPO3Fluid\Fluid\Core\Parser\TemplateParser::class . '::parse');
         }
 
-        if ($configuration['traceFluidRendering']) {
+        if (isset($configuration['traceFluidRendering']) && $configuration['traceFluidRendering']) {
             newrelic_add_custom_tracer(\TYPO3Fluid\Fluid\View\TemplateView::class . '::render');
             newrelic_add_custom_tracer(\TYPO3Fluid\Fluid\View\TemplateView::class . '::renderPartial');
             newrelic_add_custom_tracer(\TYPO3Fluid\Fluid\View\TemplateView::class . '::renderSection');
         }
 
-        if ($configuration['traceExtbaseControllers']) {
+        if (isset($configuration['traceExtbaseControllers']) && $configuration['traceExtbaseControllers']) {
             newrelic_add_custom_tracer(\TYPO3\CMS\Extbase\Mvc\Controller\ActionController::class . '::processRequest');
             newrelic_add_custom_tracer(\TYPO3\CMS\Extbase\Mvc\Controller\ActionController::class . '::initializeAction');
             newrelic_add_custom_tracer(\TYPO3\CMS\Extbase\Mvc\Controller\ActionController::class . '::callActionMethod');
         }
 
-        if ($configuration['traceExtbasePersistence']) {
+        if (isset($configuration['traceExtbasePersistence']) && $configuration['traceExtbasePersistence']) {
             newrelic_add_custom_tracer(\TYPO3\CMS\Extbase\Persistence\Generic\Query::class . '::execute');
             newrelic_add_custom_tracer(\TYPO3\CMS\Extbase\Property\PropertyMapper::class . '::convert');
         }
 
-        if ($configuration['traceCacheOperations']) {
+        if (isset($configuration['traceCacheOperations']) && $configuration['traceCacheOperations']) {
             newrelic_add_custom_tracer(\TYPO3\CMS\Core\Cache\Backend\Typo3DatabaseBackend::class . '::get');
             newrelic_add_custom_tracer(\TYPO3\CMS\Core\Cache\Backend\Typo3DatabaseBackend::class . '::set');
             newrelic_add_custom_tracer(\TYPO3\CMS\Core\Cache\Backend\Typo3DatabaseBackend::class . '::flush');
@@ -95,7 +95,7 @@ if (!defined('TYPO3_MODE')) {
 
         if (TYPO3_MODE === 'BE') {
 
-            if ($configuration['traceDataHandlerCommands']) {
+            if (isset($configuration['traceDataHandlerCommands']) && $configuration['traceDataHandlerCommands']) {
                 $GLOBALS['TYPO3_CONF_VARS']['SC_OPTIONS']['t3lib/class.t3lib_tcemain.php']['processCmdmapClass'][] = \NamelessCoder\NewrelicIntegration\Hooks\DataHandlerHookSubscriber::class;
             }
 
@@ -111,27 +111,27 @@ if (!defined('TYPO3_MODE')) {
 
         if (TYPO3_MODE === 'FE') {
 
-            if ($configuration['traceTypoScriptParsing']) {
+            if (isset($configuration['traceTypoScriptParsing']) && $configuration['traceTypoScriptParsing']) {
                 newrelic_add_custom_tracer(\TYPO3\CMS\Core\TypoScript\Parser\TypoScriptParser::class . '::parse');
                 newrelic_add_custom_tracer(\TYPO3\CMS\Core\TypoScript\Parser\TypoScriptParser::class . '::includeFile');
                 newrelic_add_custom_tracer(\TYPO3\CMS\Core\TypoScript\Parser\TypoScriptParser::class . '::includeDirectory');
             }
 
-            if ($configuration['tracePageUid']) {
+            if (isset($configuration['tracePageUid']) && $configuration['tracePageUid']) {
                 $GLOBALS['TYPO3_CONF_VARS']['SC_OPTIONS']['tslib/class.tslib_fe.php']['determineId-PostProc']['newrelic'] = function(
                     array $parameters,
                     \TYPO3\CMS\Frontend\Controller\TypoScriptFrontendController $controller
                 ) use ($configuration) {
                     newrelic_name_transaction(TYPO3_MODE . '/page-' . $controller->id . '-default');
-                    if ($configuration['tracePageType']) {
-                        if (\TYPO3\CMS\Core\Utility\GeneralUtility::_GP('type')) {
+                    if (isset($configuration['tracePageType']) && $configuration['tracePageType']) {
+                        if (\TYPO3\CMS\Core\Utility\GeneralUtility::_GP('type') ?? null) {
                             newrelic_name_transaction(TYPO3_MODE . '/page-' . $controller->id . '-type' . \TYPO3\CMS\Core\Utility\GeneralUtility::_GP('type'));
                         }
                     }
                 };
             }
 
-            if ($configuration['traceFrontendUsers']) {
+            if (isset($configuration['traceFrontendUsers']) && $configuration['traceFrontendUsers']) {
                 $GLOBALS['TYPO3_CONF_VARS']['SC_OPTIONS']['tslib/class.tslib_fe.php']['initFEuser']['newrelic'] = function(
                     array $parameters,
                     \TYPO3\CMS\Frontend\Controller\TypoScriptFrontendController $controller
