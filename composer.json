@@ -3,7 +3,7 @@
     "type": "typo3-cms-extension",
     "description": "A collection of integrations for Newrelic monitoring",
     "require": {
-        "php": ">=7.0 <8.2",
+        "php": ">=7.0 <8.3",
         "typo3/cms-core": "^8 || ^9 || ^10 || ^11",
         "typo3/cms-frontend": "^8 || ^9 || ^10 || ^11",
         "typo3/cms-backend": "^8 || ^9 || ^10 || ^11"
