@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 namespace NamelessCoder\NewrelicIntegration\Middleware;
@@ -15,24 +16,25 @@ class NewRelicInstrumentation implements MiddlewareInterface
     /**
      * Add custom parameters to newrelic about cache and user_int
      *
-     * @param ServerRequestInterface $request
+     * @param ServerRequestInterface  $request
      * @param RequestHandlerInterface $handler
+     *
      * @return ResponseInterface
      */
     public function process(ServerRequestInterface $request, RequestHandlerInterface $handler): ResponseInterface
     {
-        $response = $handler->handle($request);
-        if (
-            $GLOBALS['TSFE'] instanceof TypoScriptFrontendController
-            && extension_loaded('newrelic')
-        ) {
+        if (!extension_loaded('newrelic')) {
+            return $handler->handle($request);
+        }
+
+        if ($GLOBALS['TSFE'] instanceof TypoScriptFrontendController) {
             $userIntInfo = $this->getUserIntInfo();
             newrelic_add_custom_parameter('user_int_count', count($userIntInfo));
             $cacheDisabled = (bool)$GLOBALS['TSFE']->no_cache;
             newrelic_add_custom_parameter('cache_disabled', $cacheDisabled);
-
         }
-        return $response;
+
+        return $handler->handle($request);
     }
 
     protected function getUserIntInfo(): array
@@ -41,7 +43,7 @@ class NewRelicInstrumentation implements MiddlewareInterface
         $intScripts = $GLOBALS['TSFE']->config['INTincScript'] ?? [];
 
         foreach ($intScripts as $intScriptName => $intScriptConf) {
-            $info = isset($intScriptConf['type']) ?  ['TYPE' => $intScriptConf['type']] : [];
+            $info = isset($intScriptConf['type']) ? ['TYPE' => $intScriptConf['type']] : [];
             foreach ($intScriptConf['conf'] as $key => $conf) {
                 if (is_array($conf)) {
                     $conf = ArrayUtility::flatten($conf);
