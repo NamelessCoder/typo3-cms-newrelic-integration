@@ -10,7 +10,7 @@ defined('TYPO3_MODE') || defined('TYPO3') or die();
     $applicationType = 'BE';
     if (defined('TYPO3_MODE')) {
         $applicationType = TYPO3_MODE;
-    } elseif ($GLOBALS['TYPO3_REQUEST'] !== null) {
+    } elseif (($GLOBALS['TYPO3_REQUEST'] ?? null) instanceof \Psr\Http\Message\ServerRequestInterface) {
         $applicationType = \TYPO3\CMS\Core\Http\ApplicationType::fromRequest($GLOBALS['TYPO3_REQUEST'])->abbreviate();
     }
 
@@ -156,7 +156,7 @@ defined('TYPO3_MODE') || defined('TYPO3') or die();
                 array $parameters,
                 \TYPO3\CMS\Frontend\Controller\TypoScriptFrontendController $controller
             ) use ($configuration) {
-                $login = $controller->fe_user->getLoginFormData($GLOBALS['TYPO3_REQUEST']);
+                $login = $controller->fe_user->getLoginFormData();
                 if (!empty($login) && $login['status'] === 'login') {
                     newrelic_name_transaction('FE login');
                 }
