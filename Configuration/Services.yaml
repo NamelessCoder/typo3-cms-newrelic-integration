@@ -1,0 +1,24 @@
+services:
+  _defaults:
+    autowire: true
+    autoconfigure: true
+    public: false
+
+  NamelessCoder\NewrelicIntegration\:
+    resource: '../Classes/*'
+
+  NamelessCoder\NewrelicIntegration\Event\AfterPageResolveEvent:
+    public: true
+    tags:
+      - name: event.listener
+        identifier: 'namelessCoder/newrelicIntegration/after-page-resolve-event'
+        method: 'setNewrelicNameTransaction'
+        event: TYPO3\CMS\Frontend\Event\AfterPageAndLanguageIsResolvedEvent
+
+  NamelessCoder\NewrelicIntegration\Event\PageLayoutContentEvent:
+    public: true
+    tags:
+      - name: event.listener
+        identifier: 'namelessCoder/newrelicIntegration/page-layout-content-event'
+        method: 'setNewrelicNameTransaction'
+        event: TYPO3\CMS\Backend\Controller\Event\ModifyPageLayoutContentEvent
